@@ -38,4 +38,7 @@ def cadastro(request):
         else:
             User.objects.create_user(name = name, email = email, password = password)
             return redirect('/account/cadastro/?status=success')
-            
+
+def sair(request):
+    auth.logout(request)
+    return redirect('/account/login')     
