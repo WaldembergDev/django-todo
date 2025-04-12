@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import User
+from django.contrib import auth
+from django.contrib import messages
+from django.contrib.messages import constants
 
 # Create your views here.
 def login(request):
@@ -8,7 +11,17 @@ def login(request):
     else:
         email = request.POST.get('email')
         password = request.POST.get('password')
-        pass
+        if not email:
+            messages.add_message(request, constants.WARNING, 'Informe um e-mail!')
+        if not password:
+            messages.add_message(request, constants.WARNING, 'Informe uma senha!')
+        user = auth.authenticate(request, email = email, password = password)
+        if user:
+            auth.login(request, user)
+            return redirect('/task/home')
+        else:
+            messages.add_message(request, constants.WARNING, 'E-mail ou senha inválidos!')
+            return redirect('/account/login')
         
 
 def cadastro(request):

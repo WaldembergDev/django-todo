@@ -3,6 +3,7 @@
 {% block content %}
     <div class='container d-flex flex-column align-items-center mt-5'>
         <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
             <div class="mb-3">
               <label for="InputEmail" class="form-label">E-mail</label>
               <input name="email" type="email" class="form-control" id="InputEmail">
@@ -13,5 +14,12 @@
             </div>
             <button type="submit" class="btn btn-primary">Logar</button>
           </form>
+          {% if messages %}
+            {% for i in messages %}
+                <div class="alert {{i.tags}} mt-3" role="alert">
+                    {{i}}
+                </div>
+            {% endfor %}
+          {% endif %}
     </div>
 {% endblock %}
