@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro{% endblock %}
+{% block content %}
+    <div class='container d-flex flex-column align-items-center mt-5'>
+        <form method="POST" action="{% url 'cadastro' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="InputEmail" class="form-label">Nome</label>
+                <input name="name" type="text" class="form-control" id="InputEmail">
+              </div>
+            <div class="mb-3">
+              <label for="InputEmail" class="form-label">E-mail</label>
+              <input name="email" type="email" class="form-control" id="InputEmail">
+            </div>
+            <div class="mb-3">
+              <label for="InputPassword" class="form-label">Senha</label>
+              <input name="password" type="password" class="form-control" id="InputPassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+          </form>
+    </div>
+{% endblock %}
