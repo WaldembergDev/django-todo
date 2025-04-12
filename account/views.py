@@ -13,8 +13,10 @@ def login(request):
         password = request.POST.get('password')
         if not email:
             messages.add_message(request, constants.WARNING, 'Informe um e-mail!')
+            return redirect('/account/login')
         if not password:
             messages.add_message(request, constants.WARNING, 'Informe uma senha!')
+            return redirect('/account/login')
         user = auth.authenticate(request, email = email, password = password)
         if user:
             auth.login(request, user)
