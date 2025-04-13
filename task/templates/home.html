@@ -7,6 +7,14 @@
     </div>
     <div class='container'>
         <h1 class="text-center display-4">Minhas Tarefas</h1>
+        <div class="d-flex justify-content-center mb-4">
+            <div class="btn-group" role="group" aria-label="Filtro de Tarefas">
+                <a href="?status_selecionado=todas" class="btn btn-outline-secondary {% if request.GET.status_selecionado == 'todas' or not request.GET.status_selecionado %}active{% endif %}">Todas</a>
+                <a href="?status_selecionado=pendentes" class="btn btn-outline-warning {% if request.GET.status_selecionado == 'pendentes' %}active{% endif %}">Pendentes</a>
+                <a href="?status_selecionado=andamentos" class="btn btn-outline-primary {% if request.GET.status_selecionado == 'andamentos' %}active{% endif %}">Andamentos</a>
+                <a href="?status_selecionado=concluidas" class="btn btn-outline-success {% if request.GET.status_selecionado == 'concluidas' %}active{% endif %}">Concluídas</a>
+            </div>
+        </div>
         {% if messages %}
             {% for message in messages %}
                 <div class="alert {{message.tags}}" role="alert">

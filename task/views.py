@@ -9,9 +9,18 @@ from account.models import User
 @login_required(login_url='/account/login')
 def home(request):
     status = [status.value for status in StatusEnum]
+    status_selecionado = request.GET.get('status_selecionado')
     user = request.user
     tasks = Task.objects.filter(user = user).all()
-    return render(request, 'home.html', {'status': status, 'tasks': tasks})
+    if status_selecionado:
+        if status_selecionado != 'Todas':
+            if status_selecionado == 'pendentes':
+                tasks = tasks.filter(status = StatusEnum.PENDING)
+            if status_selecionado == 'andamentos':
+                tasks = tasks.filter(status = StatusEnum.IN_PROGRESS)
+            if status_selecionado == 'concluidas':
+                tasks = tasks.filter(status = StatusEnum.FINISHED)
+    return render(request, 'home.html', {'status': status, 'tasks': tasks, 'status_selecionado': status_selecionado})
 
 @login_required(login_url='/account/login')
 def create_task(request):
