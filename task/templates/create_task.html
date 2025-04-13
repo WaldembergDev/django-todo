@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Criar Tarefa{% endblock %}
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    <div class='container'>
+        <h1 class="text-center">Você está logado no sistema!</h1>
+        <form method="POST" action="{% url 'create_task' %}">
+            {% csrf_token %}
+            <h2 class="text-center">Criar tarefa</h2>
+            <div class="mb-3">
+              <label for="InputName" class="form-label">Nome</label>
+              <input name="name" type="text" class="form-control" id="InputName">
+            </div>
+            <div class="mb-3">
+              <label for="InputExpirationDate" class="form-label">Prazo</label>
+              <input name="expiration_date" type="datetime-local" class="form-control" id="InputExpirationDate">
+            </div>
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select mb-3" aria-label="Default select example">
+                {% for i in status %}                    
+                    <option value="{{i}}" {% if i == "Pendente" %} selected {% endif %}>{{i}}</option>
+                {% endfor %}
+              </select>
+            <button type="submit" class="btn btn-primary">Criar Tarefa</button>
+          </form>
+          <hr>
+    </div>
+{% endblock %}
