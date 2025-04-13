@@ -7,7 +7,7 @@
             <div class="mb-3">
                 <label for="InputEmail" class="form-label">Nome</label>
                 <input name="name" type="text" class="form-control" id="InputEmail">
-              </div>
+            </div>
             <div class="mb-3">
               <label for="InputEmail" class="form-label">E-mail</label>
               <input name="email" type="email" class="form-control" id="InputEmail">
@@ -18,5 +18,13 @@
             </div>
             <button type="submit" class="btn btn-primary">Cadastrar</button>
           </form>
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{message.tags}} mt-3" role="alert">
+                {{message}}
+            </div>
+            {% endfor %}
+          {% endif %}
     </div>
+    
 {% endblock %}

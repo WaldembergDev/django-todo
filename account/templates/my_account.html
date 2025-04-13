@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Minha conta{% endblock %}
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    <div class="container">
+        <h1>Meus dados cadastrais</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="InputEmail1" class="form-label">Nome</label>
+                <input name="name" type="text" class="form-control" id="exampleInputEmail1" value="{{user.name}}">
+              </div>
+            <div class="mb-3">
+              <label for="InputEmail1" class="form-label">Email</label>
+              <input name="email" type="email" class="form-control" id="exampleInputEmail1" value="{{user.email}}">
+            </div>
+            <button type="submit" class="btn btn-primary mb-3">Atualizar conta</button>
+          </form>
+          {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{message.tags}}" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+          {% endif %}
+    </div>
+{% endblock %}

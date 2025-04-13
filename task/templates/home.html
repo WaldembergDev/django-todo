@@ -2,26 +2,40 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     {% include 'partials/navbar.html' %}
+    <div class="d-flex justify-content-center mb-3 mt-3">
+        <a href="{% url 'create_task' %}" class="btn btn-success">Criar Tarefa</a>
+    </div>
     <div class='container'>
-        <h1 class="text-center">Você está logado no sistema!</h1>
+        <h1 class="text-center display-4">Minhas Tarefas</h1>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{message.tags}}" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
         <table class="table">
             <thead>
-              <tr>
+              <tr class="text-center">
                 <th scope="col">Id</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Data de Criação</th>
                 <th scope="col">Vencimento</th>
                 <th scope="col">Situação</th>
+                <th scope="col" colspan="3">Ações</th>
               </tr>
             </thead>
             <tbody>
               {% for task in tasks %}
-                <tr>
+                <tr class="text-center">
                     <th>{{task.id}}</th>
                     <th>{{task.name}}</th>
                     <td>{{task.creation_date}}</td>
                     <td>{{task.expiration_date}}</td>
                     <td>{{task.status}}</td>
+                    <td><a class="btn btn-success" href="{% url 'finish_task' task.id %}">Concluir</a></td>
+                    <td><a class="btn btn-primary" href="{% url 'edit_task' task.id %}">Editar</a></td>
+                    <td><a class="btn btn-danger" href="{% url 'exclude_task' task.id %}">Excluir</a></td>
                 </tr>
               {% endfor %}
             </tbody>
