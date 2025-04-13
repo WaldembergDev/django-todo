@@ -9,7 +9,9 @@ from account.models import User
 @login_required(login_url='/account/login')
 def home(request):
     status = [status.value for status in StatusEnum]
-    return render(request, 'home.html', {'status': status})
+    user = request.user
+    tasks = Task.objects.filter(user = user).all()
+    return render(request, 'home.html', {'status': status, 'tasks': tasks})
 
 @login_required(login_url='/account/login')
 def create_task(request):
